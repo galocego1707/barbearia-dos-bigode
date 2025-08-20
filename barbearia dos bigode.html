@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Barbearia dos Bigodes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #111;
+      color: #000;
+    }
+
+    .tela {
+      display: none;
+      background: white;
+      padding: 20px;
+      max-width: 400px;
+      margin: 20px auto;
+      border-radius: 10px;
+    }
+
+    .tela.ativa {
+      display: block;
+    }
+
+    .btn {
+      background: linear-gradient(to right, #f1c40f, #e67e22);
+      border: none;
+      padding: 10px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      border-radius: 10px;
+      width: 100%;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    nav {
+      background: #222;
+      padding: 10px;
+      text-align: center;
+    }
+
+    nav button {
+      background: #f1c40f;
+      border: none;
+      padding: 8px 12px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    h2 {
+      text-align: center;
+      color: #f1c40f;
+    }
+
+    .status-disponivel {
+      color: green;
+    }
+
+    .status-indisponivel {
+      color: red;
+    }
+
+    .servico-icon {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navegação -->
+  <nav>
+    <button onclick="mostrarTela('login')">Login</button>
+    <button onclick="mostrarTela('cadastro')">Cadastro</button>
+    <button onclick="mostrarTela('home')">Home</button>
+    <button onclick="mostrarTela('perfil')">Perfil</button>
+    <button onclick="mostrarTela('barbeiros')">Barbeiros</button>
+    <button onclick="mostrarTela('servicos')">Serviços</button>
+    <button onclick="mostrarTela('agendamentos')">Agendamentos</button>
+    <button onclick="mostrarTela('cortes')">Cortes</button>
+  </nav>
+
+  <!-- Login -->
+  <div id="login" class="tela ativa">
+    <h2>Login</h2>
+    <input type="text" placeholder="Nome">
+    <input type="text" placeholder="CPF">
+    <input type="email" placeholder="E-mail">
+    <input type="password" placeholder="Senha">
+    <button class="btn">Entrar</button>
+    <p>Não tem conta? <a href="#" onclick="mostrarTela('cadastro')">Criar conta</a></p>
+  </div>
+
+  <!-- Cadastro -->
+  <div id="cadastro" class="tela">
+    <h2>Cadastro</h2>
+    <input type="text" placeholder="Nome">
+    <input type="text" placeholder="Telefone">
+    <input type="text" placeholder="CPF">
+    <input type="email" placeholder="E-mail">
+    <input type="password" placeholder="Senha">
+    <button class="btn">Criar conta</button>
+    <small>Ao criar uma conta, você concorda com os <a href="#">termos de uso</a>.</small>
+  </div>
+
+  <!-- Home -->
+  <div id="home" class="tela">
+    <h2>Barbearia dos Bigodes</h2>
+    <button class="btn" style="background: lightgreen;">Economize 30% no primeiro corte - Agendar</button>
+    <button class="btn">Cortes</button>
+    <button class="btn">Barbeiros</button>
+    <button class="btn">Serviços</button>
+    <button class="btn">Outros</button>
+    <button class="btn">Sobre nós</button>
+  </div>
+
+  <!-- Perfil -->
+  <div id="perfil" class="tela">
+    <h2>Perfil</h2>
+    <img src="https://via.placeholder.com/100" alt="Foto de perfil" style="border-radius:50%; display:block; margin: 0 auto;">
+    <p style="text-align:center;"><a href="#">Alterar foto</a></p>
+    <input type="text" placeholder="Nome">
+    <input type="text" placeholder="Telefone">
+    <input type="email" placeholder="E-mail">
+    <button class="btn">Salvar alterações</button>
+  </div>
+
+  <!-- Barbeiros -->
+  <div id="barbeiros" class="tela">
+    <h2>Barbeiros disponíveis</h2>
+    <p><strong>João Victor</strong><br>34 Anos, Casado<br><em>Não faço cortes a navalha</em><br>Status: <span class="status-disponivel">Disponível</span></p>
+    <hr>
+    <p><strong>Gabriel Perigo</strong><br>23 Anos, Casado<br><em>Não trabalho com pintura e coloração</em><br>Status: <span class="status-indisponivel">Indisponível</span></p>
+  </div>
+
+  <!-- Serviços -->
+  <div id="servicos" class="tela">
+    <h2>Serviços disponíveis</h2>
+    <p class="servico-icon">💇 cortes</p>
+    <p class="servico-icon">🍺 Bar</p>
+    <p class="servico-icon">🎱 sinuca</p>
+    <p class="servico-icon">🧔 barba</p>
+  </div>
+
+  <!-- Agendamentos -->
+  <div id="agendamentos" class="tela">
+    <h2>Assistente de Agendamento</h2>
+    <p>📅 Você tem um corte nas próximas 48h: <span class="status-indisponivel">15/08 às 22:00</span></p>
+    <p>📅 Você tem um corte marcado: <strong>27/10 às 20:00</strong></p>
+    <p>✅ Seu corte foi realizado: <strong>11/06 às 21:35</strong></p>
+  </div>
+
+  <!-- Cortes -->
+  <div id="cortes" class="tela">
+    <h2>Cortes disponíveis</h2>
+    <ul style="columns: 2;">
+      <li>Moicano</li>
+      <li>Mid Fade</li>
+      <li>Undercut</li>
+      <li>Navalhado</li>
+      <li>Jaca</li>
+      <li>Social</li>
+      <li>Degradê</li>
+      <li>Mullet</li>
+      <li>Americano</li>
+      <li>Low Fade</li>
+    </ul>
+  </div>
+
+  <!-- Script para alternar telas -->
+  <script>
+    function mostrarTela(id) {
+      const telas = document.querySelectorAll('.tela');
+      telas.forEach(tela => tela.classList.remove('ativa'));
+      document.getElementById(id).classList.add('ativa');
+    }
+  </script>
+
+</body>
+</html>
