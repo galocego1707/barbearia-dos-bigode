@@ -15,7 +15,7 @@
       display: none;
       background: white;
       padding: 20px;
-      max-width: 400px;
+      max-width: 500px;
       margin: 20px auto;
       border-radius: 10px;
     }
@@ -36,7 +36,7 @@
       width: 100%;
     }
 
-    input {
+    input, select, textarea {
       display: block;
       width: 100%;
       padding: 8px;
@@ -65,25 +65,56 @@
       color: #f1c40f;
     }
 
-    .status-disponivel {
-      color: green;
+    .status-disponivel { color: green; }
+    .status-indisponivel { color: red; }
+
+    .servico-icon { font-size: 30px; }
+
+    /* Chat */
+    .chat-box {
+      border: 1px solid #ccc;
+      height: 200px;
+      overflow-y: auto;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+      border-radius: 10px;
     }
 
-    .status-indisponivel {
-      color: red;
+    .mensagem {
+      margin: 5px 0;
+      padding: 5px;
+      border-radius: 5px;
     }
 
-    .servico-icon {
-      font-size: 30px;
-    }
+    .cliente { background: #d1f7d1; text-align: right; }
+    .barbeiro { background: #f1f1f1; text-align: left; }
   </style>
 </head>
 <body>
 
-  <!-- Navegação -->
-  <nav>
-    <button onclick="mostrarTela('login')">Login</button>
-    <button onclick="mostrarTela('cadastro')">Cadastro</button>
+  <!-- LOGIN -->
+  <div id="login" class="tela ativa">
+    <h2>Login</h2>
+    <input type="text" placeholder="E-mail" id="loginEmail">
+    <input type="password" placeholder="Senha" id="loginSenha">
+    <button class="btn" onclick="fazerLogin()">Entrar</button>
+    <p>Não tem conta? <a href="#" onclick="mostrarTela('cadastro')">Criar conta</a></p>
+  </div>
+
+  <!-- CADASTRO -->
+  <div id="cadastro" class="tela">
+    <h2>Criar Conta</h2>
+    <input type="text" placeholder="Nome" id="cadNome">
+    <input type="text" placeholder="Telefone" id="cadTelefone">
+    <input type="text" placeholder="CPF" id="cadCPF">
+    <input type="email" placeholder="E-mail" id="cadEmail">
+    <input type="password" placeholder="Senha" id="cadSenha">
+    <button class="btn" onclick="finalizarCadastro()">Cadastrar</button>
+  </div>
+
+  <!-- MENU PRINCIPAL -->
+  <nav id="menuPrincipal" style="display:none;">
     <button onclick="mostrarTela('home')">Home</button>
     <button onclick="mostrarTela('perfil')">Perfil</button>
     <button onclick="mostrarTela('barbeiros')">Barbeiros</button>
@@ -92,99 +123,134 @@
     <button onclick="mostrarTela('cortes')">Cortes</button>
   </nav>
 
-  <!-- Login -->
-  <div id="login" class="tela ativa">
-    <h2>Login</h2>
-    <input type="text" placeholder="Nome">
-    <input type="text" placeholder="CPF">
-    <input type="email" placeholder="E-mail">
-    <input type="password" placeholder="Senha">
-    <button class="btn">Entrar</button>
-    <p>Não tem conta? <a href="#" onclick="mostrarTela('cadastro')">Criar conta</a></p>
-  </div>
-
-  <!-- Cadastro -->
-  <div id="cadastro" class="tela">
-    <h2>Cadastro</h2>
-    <input type="text" placeholder="Nome">
-    <input type="text" placeholder="Telefone">
-    <input type="text" placeholder="CPF">
-    <input type="email" placeholder="E-mail">
-    <input type="password" placeholder="Senha">
-    <button class="btn">Criar conta</button>
-    <small>Ao criar uma conta, você concorda com os <a href="#">termos de uso</a>.</small>
-  </div>
-
-  <!-- Home -->
+  <!-- HOME -->
   <div id="home" class="tela">
-    <h2>Barbearia dos Bigodes</h2>
-    <button class="btn" style="background: lightgreen;">Economize 30% no primeiro corte - Agendar</button>
-    <button class="btn">Cortes</button>
-    <button class="btn">Barbeiros</button>
-    <button class="btn">Serviços</button>
-    <button class="btn">Outros</button>
-    <button class="btn">Sobre nós</button>
+    <h2>Bem-vindo à Barbearia dos Bigodes</h2>
+    <p style="text-align:center;">Escolha uma opção no menu acima.</p>
   </div>
 
-  <!-- Perfil -->
+  <!-- PERFIL -->
   <div id="perfil" class="tela">
-    <h2>Perfil</h2>
-    <img src="https://via.placeholder.com/100" alt="Foto de perfil" style="border-radius:50%; display:block; margin: 0 auto;">
-    <p style="text-align:center;"><a href="#">Alterar foto</a></p>
-    <input type="text" placeholder="Nome">
-    <input type="text" placeholder="Telefone">
-    <input type="email" placeholder="E-mail">
-    <button class="btn">Salvar alterações</button>
+    <h2>Perfil do Cliente</h2>
+    <p><strong>Nome:</strong> <span id="perfilNome"></span></p>
+    <p><strong>E-mail:</strong> <span id="perfilEmail"></span></p>
+    <h3>Meus Agendamentos</h3>
+    <ul id="listaAgendamentos"></ul>
   </div>
 
-  <!-- Barbeiros -->
+  <!-- BARBEIROS -->
   <div id="barbeiros" class="tela">
-    <h2>Barbeiros disponíveis</h2>
-    <p><strong>João Victor</strong><br>34 Anos, Casado<br><em>Não faço cortes a navalha</em><br>Status: <span class="status-disponivel">Disponível</span></p>
-    <hr>
-    <p><strong>Gabriel Perigo</strong><br>23 Anos, Casado<br><em>Não trabalho com pintura e coloração</em><br>Status: <span class="status-indisponivel">Indisponível</span></p>
+    <h2>Nossos Barbeiros</h2>
+    <p><strong>João Victor</strong> - 34 anos<br>Status: <span class="status-disponivel">Disponível</span></p>
+    <p><strong>Gabriel Perigo</strong> - 23 anos<br>Status: <span class="status-indisponivel">Indisponível</span></p>
   </div>
 
-  <!-- Serviços -->
+  <!-- SERVIÇOS -->
   <div id="servicos" class="tela">
-    <h2>Serviços disponíveis</h2>
-    <p class="servico-icon">💇 cortes</p>
-    <p class="servico-icon">🍺 Bar</p>
-    <p class="servico-icon">🎱 sinuca</p>
-    <p class="servico-icon">🧔 barba</p>
+    <h2>Serviços</h2>
+    <p>💇 Corte de cabelo</p>
+    <p>🧔 Barba</p>
+    <p>🍺 Bar</p>
+    <p>🎱 Sinuca</p>
   </div>
 
-  <!-- Agendamentos -->
+  <!-- AGENDAMENTOS -->
   <div id="agendamentos" class="tela">
-    <h2>Assistente de Agendamento</h2>
-    <p>📅 Você tem um corte nas próximas 48h: <span class="status-indisponivel">15/08 às 22:00</span></p>
-    <p>📅 Você tem um corte marcado: <strong>27/10 às 20:00</strong></p>
-    <p>✅ Seu corte foi realizado: <strong>11/06 às 21:35</strong></p>
+    <h2>Agendamento</h2>
+    <label>Escolha o barbeiro:</label>
+    <select id="barbeiroSelect">
+      <option>João Victor (Disponível)</option>
+      <option disabled>Gabriel Perigo (Indisponível)</option>
+    </select>
+    <label>Data e hora:</label>
+    <input type="datetime-local" id="dataAgendamento">
+    <button class="btn" onclick="agendarHorario()">Agendar</button>
+
+    <h3>Chat com o Barbeiro</h3>
+    <div class="chat-box" id="chatBox"></div>
+    <input type="text" id="msgInput" placeholder="Digite sua mensagem...">
+    <button class="btn" onclick="enviarMensagem()">Enviar</button>
   </div>
 
-  <!-- Cortes -->
+  <!-- CORTES -->
   <div id="cortes" class="tela">
-    <h2>Cortes disponíveis</h2>
-    <ul style="columns: 2;">
-      <li>Moicano</li>
-      <li>Mid Fade</li>
-      <li>Undercut</li>
-      <li>Navalhado</li>
-      <li>Jaca</li>
-      <li>Social</li>
-      <li>Degradê</li>
-      <li>Mullet</li>
-      <li>Americano</li>
-      <li>Low Fade</li>
-    </ul>
+    <h2>Galeria de Cortes</h2>
+    <div style="columns:2;">
+      <img src="https://via.placeholder.com/150" alt="Corte 1">
+      <img src="https://via.placeholder.com/150" alt="Corte 2">
+      <img src="https://via.placeholder.com/150" alt="Corte 3">
+      <img src="https://via.placeholder.com/150" alt="Corte 4">
+    </div>
   </div>
 
-  <!-- Script para alternar telas -->
   <script>
+    let usuario = { nome: "", email: "" };
+    let agendamentos = [];
+
     function mostrarTela(id) {
-      const telas = document.querySelectorAll('.tela');
-      telas.forEach(tela => tela.classList.remove('ativa'));
+      document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
       document.getElementById(id).classList.add('ativa');
+    }
+
+    function finalizarCadastro() {
+      usuario.nome = document.getElementById("cadNome").value;
+      usuario.email = document.getElementById("cadEmail").value;
+      alert("Cadastro realizado com sucesso!");
+      mostrarTela("login");
+    }
+
+    function fazerLogin() {
+      usuario.email = document.getElementById("loginEmail").value;
+      document.getElementById("perfilNome").innerText = usuario.nome;
+      document.getElementById("perfilEmail").innerText = usuario.email;
+      document.getElementById("menuPrincipal").style.display = "block";
+      alert("Login realizado com sucesso!");
+      mostrarTela("home");
+    }
+
+    function agendarHorario() {
+      const barbeiro = document.getElementById("barbeiroSelect").value;
+      const data = document.getElementById("dataAgendamento").value;
+      if (!data) {
+        alert("Escolha uma data e hora!");
+        return;
+      }
+      const agendamento = `${barbeiro} - ${data}`;
+      agendamentos.push(agendamento);
+      atualizarAgendamentos();
+      alert("Agendamento confirmado!");
+    }
+
+    function atualizarAgendamentos() {
+      const lista = document.getElementById("listaAgendamentos");
+      lista.innerHTML = "";
+      agendamentos.forEach(a => {
+        const li = document.createElement("li");
+        li.innerText = a;
+        lista.appendChild(li);
+      });
+    }
+
+    function enviarMensagem() {
+      const msg = document.getElementById("msgInput").value;
+      if (msg.trim() === "") return;
+      const chatBox = document.getElementById("chatBox");
+      const div = document.createElement("div");
+      div.className = "mensagem cliente";
+      div.innerText = msg;
+      chatBox.appendChild(div);
+      document.getElementById("msgInput").value = "";
+
+      // Simulação de resposta do barbeiro
+      setTimeout(() => {
+        const resposta = document.createElement("div");
+        resposta.className = "mensagem barbeiro";
+        resposta.innerText = "Ok, estarei aguardando 👍";
+        chatBox.appendChild(resposta);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+
+      chatBox.scrollTop = chatBox.scrollHeight;
     }
   </script>
 
