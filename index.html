@@ -43,6 +43,7 @@
       border-radius: 10px;
       border: 1px solid #ccc;
     }
+    @media(orientation: landscape){
     nav {
       background: #222;
       padding: 10px;
@@ -51,6 +52,7 @@
       top: 0;
       z-index: 1000;
     }
+}
     nav button {
       background: #f1c40f;
       border: none;
@@ -96,36 +98,13 @@
       text-align: left;
     }
     /* Responsivo para celular */
-    @media (max-width: 600px) {
-      .tela {
-        margin: 10px;
-        padding: 15px;
-        max-width: 100%;
-        border-radius: 0;
-      }
-      .btn {
-        padding: 12px;
-        font-size: 16px;
-      }
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-      nav button {
-        flex: 1 1 45%;
-        margin: 5px;
-        font-size: 14px;
-      }
-      input,
-      select,
-      textarea {
-        font-size: 16px;
-      }
-      .chat-box {
-        height: 150px;
-      }
+    @media (orientation: portrait) {
+        nav{
+            position: fixed;
+            bottom: 0;
+        }
     }
+    
     /* Erro login */
     .erro {
       background: #ffdddd;
@@ -236,7 +215,7 @@
 <!-- HOME -->
 <div id="home" class="tela">
   <h2>Bem-vindo à Barbearia dos Bigodes</h2>
-  <p style="text-align: center;">Escolha uma opção no menu acima.</p>
+  <p style="text-align: center;"></p>
 </div>
 
 <!-- PERFIL -->
@@ -507,3 +486,4 @@
 
 </body>
 </html>
+
