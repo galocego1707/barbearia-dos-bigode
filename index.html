@@ -71,7 +71,7 @@
     }
     
     .logo-header h3 {
-        color: #fefdfd;
+        color: #fdfefd;
         font-size: 22px;
         margin: 0;
     }
@@ -84,10 +84,10 @@
     }
 
     h2 {
-      background: #cecece; /* Um cinza claro para os subtítulos */
+      background: #16cf05; /* Um cinza claro para os subtítulos */
       padding: 10px;
       border-radius: 10px;
-      color: #333; /* Texto do h2 em preto */
+      color: #e5e7e6; /* Texto do h2 em preto */
     }
 
     /* --------------------- FORM ------------------- */
@@ -109,7 +109,7 @@
       border-radius: 20px;
       border: 2px solid #555; /* Borda um pouco mais escura */
       background: #fff; /* Fundo do input branco */
-      color: #333; /* Texto do input em preto */
+      color: #dcdfdbc4; /* Texto do input em preto */
       font-weight: bold;
       text-align: center;
     }
@@ -138,6 +138,9 @@
       transform: scale(1.05);
       background: linear-gradient(180deg, #a0522d, #8b4513); /* Tom mais escuro no hover */
       box-shadow: 2px 2px 0px #333;
+    }
+    .menu-opcoes{
+      display:grid;
     }
 
     .cadastro {
@@ -266,7 +269,11 @@
         margin: 0 0 5px 0;
         color: #333;
     }
-
+    #nos{
+      color: #fff;
+      text-align: justify;
+      line-height: 1.5;
+    }
     .barbeiro-card p {
         margin: 0;
         font-size: 14px;
@@ -448,7 +455,7 @@
   <section id="sobre" class="tela">
     <div class="container">
       <h1 class="titulo">Sobre nós</h1>
-      <p>A Barbearia dos Bigode nasceu da paixão por estilo, tradição e boas conversas. Mais do que um lugar para cortar o cabelo ou fazer a barba, somos um ponto de encontro para quem valoriza o cuidado com a aparência e o clima descontraído de uma verdadeira barbearia raiz.
+      <p id="nos">A Barbearia dos Bigode nasceu da paixão por estilo, tradição e boas conversas. Mais do que um lugar para cortar o cabelo ou fazer a barba, somos um ponto de encontro para quem valoriza o cuidado com a aparência e o clima descontraído de uma verdadeira barbearia raiz.
 
         Combinamos técnicas clássicas com tendências modernas, sempre com foco na qualidade do atendimento e na satisfação de cada cliente. Aqui, cada corte é feito com atenção aos detalhes e cada barba é tratada como obra de arte. Nossa equipe é formada por barbeiros experientes, apaixonados pelo que fazem e sempre prontos para te receber com profissionalismo e bom humor.</p>
     </div>
@@ -587,7 +594,7 @@
         }
 
         alert("Agendamento confirmado!\n" +
-              "Nome: " + nome + "\n" +
+              "Nome: " + nome + "\n" +  
               "Telefone: " + telefone + "\n" +
               "Data: " + data + "\n" +
               "Horário: " + horario);
